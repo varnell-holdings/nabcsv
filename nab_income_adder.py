@@ -5,7 +5,7 @@ from decimal import Decimal
 
 
 def clean_up(inc):
-    inc = inc.strip('$+')
+    inc = inc.lstrip('$+')
     inc = inc.replace(',', '')
     inc = Decimal(inc)
     return inc
