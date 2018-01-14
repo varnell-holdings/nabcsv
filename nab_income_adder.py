@@ -1,12 +1,13 @@
 """Script to sum income from downloaded nab statement"""
 
 import csv
+from decimal import Decimal
 
 
 def clean_up(inc):
     inc = inc.strip('$+')
     inc = inc.replace(',', '')
-    inc = float(inc)
+    inc = Decimal(inc)
     return inc
 
 
@@ -15,11 +16,11 @@ def main(download):
         rows = csv.reader(f)
         next(rows)
         total = sum(clean_up(row[1]) for row in rows)
-        return round(total, 2)
+        return total
 
 
 if __name__ == '__main__':
     download = input('Enter the csv file name you have just downloaded. ')
     download = '/Users/jtair/Downloads/' + download
     total = main(download)
-    print('Total income is {: .2f}'.format(total))
+    print('Total income is {}'.format(total))
